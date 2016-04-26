@@ -1,1 +1,47 @@
-﻿<h1>Index</h1>
+﻿<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-info client-controls">
+            <div class="panel-heading">
+                <h3 class="panel-title">Support Agent Client</h3>
+            </div>
+
+            <div class="panel-body">
+                <p><strong>Status</strong></p>
+                <div class="well well-sm" id="call-status">
+                    Waiting for user to connect as an agent...
+                </div>
+
+                <div class="row" id="connect-agent-row">
+                    <div class="col-md-6 text-center">
+                        <button id="connect-agent1-button" class="btn btn-lg btn-primary">
+                            Connect as Agent 1
+                        </button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <button id="connect-agent2-button" class="btn btn-lg btn-info">
+                            Connect as Agent 2
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row hidden" id="connected-agent-row">
+                    <div class="col-md-4 text-center">
+                        <button id="answer-call-button" class="btn btn-lg btn-success" disabled>
+                            Awswer call
+                        </button>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button id="dial-agent2-button" class="btn btn-lg btn-info hidden" disabled>
+                            Dial agent 2 in
+                        </button>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button id="hangup-call-button" class="btn btn-lg btn-danger" disabled>
+                            Hangup
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
