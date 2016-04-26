@@ -15,7 +15,8 @@ namespace WarmTransfer.Web.Tests.Domain
             var callCreator = new CallCreator(mockClient.Object);
             callCreator.CallAgent("agent-id", "callback-url");
 
-            mockClient.Verify(c => c.InitiateOutboundCall("", "client:agent-id", "callback-url"), Times.Once());
+            mockClient.Verify(
+                c => c.InitiateOutboundCall("twilio-phone-number", "client:agent-id", "callback-url"), Times.Once());
         }
     }
 }

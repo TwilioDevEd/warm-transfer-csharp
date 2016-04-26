@@ -17,8 +17,7 @@ namespace WarmTransfer.Web.Domain
 
         public void CallAgent(string agentId, string callbackUrl)
         {
-            // TODO: Pull out the from number from the configuration file.
-            const string from = "";
+            var from = Config.TwilioPhoneNumber;
             _client.InitiateOutboundCall(from, string.Format("client:{0}", agentId), callbackUrl);
         }
     }
