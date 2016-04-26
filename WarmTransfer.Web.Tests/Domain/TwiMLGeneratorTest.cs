@@ -20,5 +20,18 @@ namespace WarmTransfer.Web.Tests.Domain
             Assert.That(conference.Attribute("startConferenceOnEnter").Value, Is.EqualTo("true"));
             Assert.That(conference.Attribute("endConferenceOnExit").Value, Is.EqualTo("false"));
         }
+
+        [Test]
+        public void WhenGenerateWait_ThenGeneratesTwiMLWithSayAndPlay()
+        {
+            var response = new TwiMLGenerator().GenerateWait();
+            var document = response.ToXDocument();
+            Assert.That(
+                document.XPathSelectElement("Response/Say").Value,
+                Is.EqualTo("Thank you for calling. Please wait in line for a few seconds. An agent will be with you shortly."));
+            Assert.That(
+                document.XPathSelectElement("Response/Play").Value,
+                Is.EqualTo("http://com.twilio.music.classical.s3.amazonaws.com/BusyStrings.mp3"));
+        }
     }
 }
