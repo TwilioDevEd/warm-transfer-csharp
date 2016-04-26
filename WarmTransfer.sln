@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarmTransfer.Web", "WarmTransfer.Web\WarmTransfer.Web.csproj", "{D57A47EE-E392-4F3E-961C-DA2B216A538C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarmTransfer.Web.Tests", "WarmTransfer.Web.Tests\WarmTransfer.Web.Tests.csproj", "{277FF4E5-D4FC-46EC-8D15-A09FF444D874}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D57A47EE-E392-4F3E-961C-DA2B216A538C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57A47EE-E392-4F3E-961C-DA2B216A538C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D57A47EE-E392-4F3E-961C-DA2B216A538C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D57A47EE-E392-4F3E-961C-DA2B216A538C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{277FF4E5-D4FC-46EC-8D15-A09FF444D874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277FF4E5-D4FC-46EC-8D15-A09FF444D874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277FF4E5-D4FC-46EC-8D15-A09FF444D874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{277FF4E5-D4FC-46EC-8D15-A09FF444D874}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
