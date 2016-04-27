@@ -2,17 +2,10 @@
 
 namespace WarmTransfer.Web.Domain
 {
-    public interface ITwiMLGenerator
-    {
-        TwilioResponse GenerateConnectConference(
-            string conferenceId, string waitUrl, bool startConferenceOnEnter, bool endConferenceOnExit);
 
-        TwilioResponse GenerateWait();
-    }
-
-    public class TwiMLGenerator : ITwiMLGenerator
+    public static class TwiMLGenerator
     {
-        public TwilioResponse GenerateConnectConference(
+        public static TwilioResponse GenerateConnectConference(
             string conferenceId, string waitUrl, bool startConferenceOnEnter, bool endConferenceOnExit)
         {
             var response = new TwilioResponse();
@@ -21,7 +14,7 @@ namespace WarmTransfer.Web.Domain
             return response.Dial(conference);
         }
 
-        public TwilioResponse GenerateWait()
+        public static TwilioResponse GenerateWait()
         {
             return new TwilioResponse()
                 .Say("Thank you for calling. Please wait in line for a few seconds. An agent will be with you shortly.")

@@ -10,7 +10,7 @@ namespace WarmTransfer.Web.Tests.Domain
         [Test]
         public void WhenGenerateConnectConference_ThenGeneratesTwiMLWithDialAndConference()
         {
-            var response = new TwiMLGenerator().GenerateConnectConference("conference-id", "wait-url", true, false);
+            var response = TwiMLGenerator.GenerateConnectConference("conference-id", "wait-url", true, false);
             var conference =
                 response.ToXDocument().XPathSelectElement("Response/Dial/Conference");
 
@@ -24,7 +24,7 @@ namespace WarmTransfer.Web.Tests.Domain
         [Test]
         public void WhenGenerateWait_ThenGeneratesTwiMLWithSayAndPlay()
         {
-            var response = new TwiMLGenerator().GenerateWait();
+            var response = TwiMLGenerator.GenerateWait();
             var document = response.ToXDocument();
             Assert.That(
                 document.XPathSelectElement("Response/Say").Value,
