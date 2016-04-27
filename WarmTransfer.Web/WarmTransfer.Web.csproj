@@ -151,6 +151,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Call.cs" />
+    <Compile Include="Models\Repository\CallsRepository.cs" />
     <Compile Include="Models\WarmTransferContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
