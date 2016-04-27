@@ -79,10 +79,15 @@
     <Reference Include="TestStack.FluentMVCTesting">
       <HintPath>..\packages\TestStack.FluentMVCTesting.3.0.0\lib\NET45\TestStack.FluentMVCTesting.dll</HintPath>
     </Reference>
-    <Reference Include="Twilio.Api">
+    <Reference Include="Twilio.Api, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Twilio.4.7.1\lib\3.5\Twilio.Api.dll</HintPath>
     </Reference>
-    <Reference Include="Twilio.Twiml">
+    <Reference Include="Twilio.Mvc">
+      <HintPath>..\packages\Twilio.Mvc.3.1.15\lib\3.5\Twilio.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Twiml, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Twilio.TwiML.3.5.0\lib\3.5\Twilio.Twiml.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -102,6 +107,8 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Domain\CallCreatorTest.cs" />
     <Compile Include="Domain\TwiMLGeneratorTest.cs" />
+    <Compile Include="Extensions\ControllerResultTestExtensions.cs" />
+    <Compile Include="Extensions\TwiMLResultExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
