@@ -4,17 +4,12 @@ namespace WarmTransfer.Web.Domain
 {
     public class CapabilityGenerator
     {
-        private readonly TwilioCapability _twilioCapability;
-
-        public CapabilityGenerator()
+        public static string Generate(string agentId)
         {
-            _twilioCapability = new TwilioCapability(Config.AccountSID, Config.AuthToken);
-        }
+            var twilioCapability = new TwilioCapability(Config.AccountSID, Config.AuthToken);
 
-        public string Generate(string agentId)
-        {
-            _twilioCapability.AllowClientIncoming(agentId);
-            return _twilioCapability.GenerateToken();
+            twilioCapability.AllowClientIncoming(agentId);
+            return twilioCapability.GenerateToken();
         }
     }
 }

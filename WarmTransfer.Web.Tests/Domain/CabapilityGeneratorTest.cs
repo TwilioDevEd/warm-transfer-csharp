@@ -8,9 +8,7 @@ namespace WarmTransfer.Web.Tests.Domain
         [Test]
         public void WhenGenerate_ThenItShouldGenerateATwilioCapability()
         {
-            CapabilityGenerator capabilityGenerator = new CapabilityGenerator();
-
-            Assert.IsNotNull(capabilityGenerator.Generate("agentId1"));
+            Assert.IsNotNull(CapabilityGenerator.Generate("agentId1"));
         }
     }
 }
