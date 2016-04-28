@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Twilio.TwiML.Mvc;
 using WarmTransfer.Web.Domain;
+using WarmTransfer.Web.Models;
 using WarmTransfer.Web.Models.Repository;
 
 using static WarmTransfer.Web.Domain.TwiMLGenerator;
@@ -45,5 +46,14 @@ namespace WarmTransfer.Web.Controllers
             var response = GenerateConnectConference(conferenceId, "wait-url", true, true);
             return TwiML(response);
         }
+
+        public ActionResult CallAgent2(string agentId)
+        {
+            _callsRepository.FindByAgentId(agentId);
+            const string callBackUrl = "agent2-callback-url"; //TODO extract it to a config file
+            _callCreator.CallAgent("agent2", callBackUrl);
+            return null;
+        }
+
     }
 }

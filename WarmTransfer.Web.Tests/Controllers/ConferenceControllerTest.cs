@@ -95,5 +95,23 @@ namespace WarmTransfer.Web.Tests.Controllers
             });
 
         }
+
+        [Test]
+        public void WhenCallAgent2_ThenItShouldFindByAgentId()
+        {
+            _controller.CallAgent2("agent2");
+
+            _mockCallsRepository.Verify(c => c.FindByAgentId("agent2"),
+                Times.Once());
+        }
+
+        [Test]
+        public void WhenCallAgent2_ThenShouldInvokeCallAgent()
+        {
+            _controller.CallAgent2("agent2");
+
+            _mockCallCreator.Verify(c => c.CallAgent("agent2", "agent2-callback-url"),
+                Times.Once());
+        }
     }
 }
