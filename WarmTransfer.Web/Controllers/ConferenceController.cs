@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Twilio;
 using Twilio.TwiML.Mvc;
 using WarmTransfer.Web.Domain;
 using WarmTransfer.Web.Models.Repository;
@@ -9,6 +10,10 @@ namespace WarmTransfer.Web.Controllers
     {
         private readonly ICallCreator _callCreator;
         private readonly ICallsRepository _callsRepository;
+
+        public ConferenceController() : this(
+            new CallCreator(new TwilioRestClient(Config.AccountSID, Config.AuthToken)),
+            new CallsRepository(new Models.WarmTransferContext())) { }
 
         public ConferenceController(
             ICallCreator callCreator, ICallsRepository callsRepository)
