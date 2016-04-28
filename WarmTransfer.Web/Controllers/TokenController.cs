@@ -5,6 +5,7 @@ namespace WarmTransfer.Web.Controllers
 {
     public class TokenController : Controller
     {
+        [HttpPost]
         public ActionResult Generate(string agentId)
         {
             var result = new

@@ -22,6 +22,7 @@ namespace WarmTransfer.Web.Controllers
             _callsRepository = callsRepository;
         }
 
+        [HttpPost]
         public ActionResult ConnectClient(string conferenceId)
         {
             const string agentOne = "agent1";
@@ -32,23 +33,27 @@ namespace WarmTransfer.Web.Controllers
             return TwiML(response);
         }
 
+        [HttpPost]
         public ActionResult Wait()
         {
             return TwiML(TwiMLGenerator.GenerateWait());
         }
 
+        [HttpPost]
         public ActionResult ConnectAgent1(string conferenceId)
         {
             var response = TwiMLGenerator.GenerateConnectConference(conferenceId, "wait-url", false, true);
             return TwiML(response);
         }
 
+        [HttpPost]
         public ActionResult ConnectAgent2(string conferenceId)
         {
             var response = TwiMLGenerator.GenerateConnectConference(conferenceId, "wait-url", true, true);
             return TwiML(response);
         }
 
+        [HttpPost]
         public ActionResult CallAgent2(string agentId)
         {
             _callsRepository.FindByAgentId(agentId);
