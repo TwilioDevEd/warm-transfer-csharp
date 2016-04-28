@@ -10,9 +10,7 @@ namespace WarmTransfer.Web.Tests.Domain
         {
             CapabilityGenerator capabilityGenerator = new CapabilityGenerator();
 
-            var token = capabilityGenerator.Generate("agentId1");
-
-            Assert.IsNotNull(token);
+            Assert.IsNotNull(capabilityGenerator.Generate("agentId1"));
         }
     }
 }
