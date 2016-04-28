@@ -108,6 +108,7 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Domain\CallCreatorTest.cs" />
     <Compile Include="Domain\TwiMLGeneratorTest.cs" />
+    <Compile Include="Domain\CabapilityGeneratorTest.cs" />
     <Compile Include="Extensions\ControllerResultTestExtensions.cs" />
     <Compile Include="Extensions\TwiMLResultExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

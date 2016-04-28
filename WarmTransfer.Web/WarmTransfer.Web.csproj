@@ -142,6 +142,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Domain\CallCreator.cs" />
     <Compile Include="Domain\Config.cs" />
+    <Compile Include="Domain\TwilioCapability.cs" />
     <Compile Include="Domain\TwiMLGenerator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
