@@ -1,12 +1,13 @@
-﻿using static WarmTransfer.Web.Domain.TwiMLGenerator;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Twilio.TwiML.Mvc;
 using WarmTransfer.Web.Domain;
 using WarmTransfer.Web.Models.Repository;
 
+using static WarmTransfer.Web.Domain.TwiMLGenerator;
+
 namespace WarmTransfer.Web.Controllers
 {
-    public class ConferenceController : Controller
+    public class ConferenceController : TwilioController
     {
         private readonly ICallCreator _callCreator;
         private readonly ICallsRepository _callsRepository;
@@ -25,7 +26,12 @@ namespace WarmTransfer.Web.Controllers
             _callCreator.CallAgent(agentOne, callBackUrl);
             _callsRepository.CreateIfNotExists(agentOne, conferenceId);
             var response = GenerateConnectConference(conferenceId, "wait-url", false, true);
-            return new TwiMLResult(response);
+            return TwiML(response);
+        }
+
+        public ActionResult Wait()
+        {
+            return TwiML(GenerateWait());
         }
     }
 }

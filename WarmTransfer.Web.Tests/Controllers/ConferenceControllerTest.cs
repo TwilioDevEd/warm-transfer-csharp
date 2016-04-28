@@ -53,5 +53,17 @@ namespace WarmTransfer.Web.Tests.Controllers
                 });
 
         }
+
+        [Test]
+        public void WhenWait_ThenItShouldGenerateWait()
+        {
+            _controller.WithCallTo(c => c.Wait())
+            .ShouldReturnTwiMLResult(data =>
+            {
+                StringAssert.Contains("Please wait", data.XPathSelectElement("Response/Say").Value);
+                StringAssert.Contains("twilio.music", data.XPathSelectElement("Response/Play").Value);
+            });
+
+        }
     }
 }
