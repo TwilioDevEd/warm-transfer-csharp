@@ -18,5 +18,10 @@ namespace WarmTransfer.Web.Domain
         {
             get { return WebConfigurationManager.AppSettings["TwilioPhoneNumber"]; }
         }
+
+        public static string Domain
+        {
+            get { return WebConfigurationManager.AppSettings["Domain"]; }
+        }
     }
 }

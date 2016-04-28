@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Twilio;
 using Twilio.TwiML.Mvc;
 using WarmTransfer.Web.Domain;
@@ -26,10 +27,10 @@ namespace WarmTransfer.Web.Controllers
         public ActionResult ConnectClient(string conferenceId)
         {
             const string agentOne = "agent1";
-            const string callBackUrl = "callback-url"; //TODO extract it to a config file
+            var callBackUrl = GetConnectConfereceUrlFor(agentOne, conferenceId);
             _callCreator.CallAgent(agentOne, callBackUrl);
             _callsRepository.CreateIfNotExists(agentOne, conferenceId);
-            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, "wait-url", false, true);
+            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, conferenceId, false, true);
             return TwiML(response);
         }
 
@@ -62,5 +63,15 @@ namespace WarmTransfer.Web.Controllers
             return null;
         }
 
+        //conference_connect_agent1_url
+        private string GetConnectConfereceUrlFor(string agentId, string conferenceId) {
+            var action = agentId == "agent1" ? "ConnectAgent1" : "ConnectAgent2";
+            var ac = Url.Action(action);
+            return string.Format(
+                "{0}://{1}{2}",
+                Request.Url.Scheme,
+                Config.Domain,
+                Url.Action(action, new {conferenceId}));
+        }
     }
 }

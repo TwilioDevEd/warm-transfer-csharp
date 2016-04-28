@@ -1,4 +1,9 @@
-﻿using Moq;
+﻿using System;
+using System.Collections.Specialized;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using Moq;
 using NUnit.Framework;
 using System.Xml.XPath;
 using TestStack.FluentMVCTesting;
@@ -22,7 +27,12 @@ namespace WarmTransfer.Web.Tests.Controllers
             _mockCallsRepository = new Mock<ICallsRepository>();
 
             _controller = new ConferenceController(
-                _mockCallCreator.Object, _mockCallsRepository.Object);
+                _mockCallCreator.Object, _mockCallsRepository.Object)
+            {
+                ControllerContext = MockControllerContext(),
+                Url = MockUrlHelper(),
+            };
+
         }
 
         [Test]
@@ -30,7 +40,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _controller.ConnectClient("conference-id");
 
-            _mockCallCreator.Verify(c => c.CallAgent("agent1", "callback-url"), 
+            _mockCallCreator.Verify(c => c.CallAgent("agent1", "http://example.com/Home/ConnectAgent1?conferenceId=conference-id"), 
                 Times.Once());
         }
 
@@ -51,7 +61,6 @@ namespace WarmTransfer.Web.Tests.Controllers
                 {
                     Assert.That(data.XPathSelectElement("Response/Dial/Conference").Value, Is.EqualTo("conference-id"));
                 });
-
         }
 
         [Test]
@@ -113,5 +122,47 @@ namespace WarmTransfer.Web.Tests.Controllers
             _mockCallCreator.Verify(c => c.CallAgent("agent2", "agent2-callback-url"),
                 Times.Once());
         }
+
+        private static ControllerContext MockControllerContext()
+        {
+
+            var httpContextMock = new Mock<HttpContextBase>();
+            httpContextMock.Setup(c => c.Request.ApplicationPath).Returns("/");
+
+
+            var mockRequest = new Mock<HttpRequestBase>();
+            mockRequest.Setup(r => r.ApplicationPath).Returns("/");
+            httpContextMock.Setup(c => c.Response.ApplyAppPathModifier(It.IsAny<string>()))
+                .Returns<string>(s => s);
+            mockRequest.SetupGet(r => r.Url).Returns(new Uri("http://www.localhost.com"));
+            var mockControllerContext = new Mock<ControllerContext>();
+            mockControllerContext.Setup(x => x.HttpContext.Request).Returns(mockRequest.Object);
+            return mockControllerContext.Object;
+        }
+
+        public static UrlHelper MockUrlHelper()
+        {
+            var mockHttpContext = new Mock<HttpContextBase>(MockBehavior.Loose);
+            var mockHttpRequest = new Mock<HttpRequestBase>(MockBehavior.Loose);
+            var mockHttpResponse = new Mock<HttpResponseBase>(MockBehavior.Strict);
+            mockHttpContext.Setup(httpContext => httpContext.Request).Returns(mockHttpRequest.Object);
+            mockHttpContext.Setup(httpContext => httpContext.Response).Returns(mockHttpResponse.Object);
+            mockHttpRequest.Setup(httpRequest => httpRequest.Url).Returns(new Uri("http://example.com"));
+            mockHttpRequest.Setup(httpRequest => httpRequest.ServerVariables).Returns(new NameValueCollection());
+
+            string value = null;
+            Action<string> saveValue = x =>
+            {
+                value = x;
+            };
+            Func<String> restoreValue = () => value;
+            mockHttpResponse.Setup(httpResponse => httpResponse.ApplyAppPathModifier(It.IsAny<string>()))
+                            .Callback(saveValue).Returns(restoreValue);
+            var requestContext = new RequestContext(mockHttpContext.Object, new RouteData());
+            var routes = new RouteCollection();
+            RouteConfig.RegisterRoutes(routes);
+            return new UrlHelper(requestContext, routes);
+        }
+
     }
 }
