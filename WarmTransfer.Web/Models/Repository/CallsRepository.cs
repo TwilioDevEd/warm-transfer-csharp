@@ -32,7 +32,7 @@ namespace WarmTransfer.Web.Models.Repository
 
         public Call FindByAgentId(string agentId)
         {
-            return _context.Calls.Where(c => c.AgentId == agentId).First();
+            return _context.Calls.Where(c => c.AgentId == agentId).FirstOrDefault();
         }
     }
 }
