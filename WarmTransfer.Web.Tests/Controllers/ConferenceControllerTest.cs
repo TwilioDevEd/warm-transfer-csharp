@@ -65,5 +65,20 @@ namespace WarmTransfer.Web.Tests.Controllers
             });
 
         }
+
+        [Test]
+        public void WhenConnectAgent1_ThenItShouldGenerateConnectConference()
+        {
+            _controller.WithCallTo(c => c.ConnectAgent1("conference-id"))
+            .ShouldReturnTwiMLResult(data =>
+            {
+                var xElement = data.XPathSelectElement("Response/Dial/Conference");
+                Assert.That(xElement.Value, Is.EqualTo("conference-id"));
+                Assert.That(xElement.Attribute("waitUrl").Value, Is.EqualTo("wait-url"));
+                Assert.That(xElement.Attribute("startConferenceOnEnter").Value, Is.EqualTo("false"));
+                Assert.That(xElement.Attribute("endConferenceOnExit").Value, Is.EqualTo("true"));
+            });
+
+        }
     }
 }
