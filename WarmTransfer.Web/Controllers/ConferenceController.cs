@@ -39,5 +39,11 @@ namespace WarmTransfer.Web.Controllers
             var response = GenerateConnectConference(conferenceId, "wait-url", false, true);
             return TwiML(response);
         }
+
+        public ActionResult ConnectAgent2(string conferenceId)
+        {
+            var response = GenerateConnectConference(conferenceId, "wait-url", true, true);
+            return TwiML(response);
+        }
     }
 }
