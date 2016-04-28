@@ -62,7 +62,7 @@
     });
 
     function dialAgent2() {
-        $.post('/conference/' + currentAgentId + '/call')
+        $.post('/conference/CallAgent2', { agentId: currentAgentId })
     }
 
     /* End a call */
