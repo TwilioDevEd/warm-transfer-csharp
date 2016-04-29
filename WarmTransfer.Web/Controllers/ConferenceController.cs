@@ -12,6 +12,8 @@ namespace WarmTransfer.Web.Controllers
         private readonly ICallCreator _callCreator;
         private readonly ICallsRepository _callsRepository;
 
+        public static string WaitUrl = "http://twimlets.com/holdmusic?Bucket=com.twilio.music.classical";
+
         public ConferenceController() : this(
             new CallCreator(new TwilioRestClient(Config.AccountSID, Config.AuthToken)),
             new CallsRepository(new Models.WarmTransferContext())) { }
@@ -43,14 +45,14 @@ namespace WarmTransfer.Web.Controllers
         [HttpPost]
         public ActionResult ConnectAgent1(string conferenceId)
         {
-            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, "wait-url", false, true);
+            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, false, true);
             return TwiML(response);
         }
 
         [HttpPost]
         public ActionResult ConnectAgent2(string conferenceId)
         {
-            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, "wait-url", true, true);
+            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, true, true);
             return TwiML(response);
         }
 

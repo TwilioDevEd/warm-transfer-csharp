@@ -85,7 +85,7 @@ namespace WarmTransfer.Web.Tests.Controllers
             {
                 var xElement = data.XPathSelectElement("Response/Dial/Conference");
                 Assert.That(xElement.Value, Is.EqualTo("conference-id"));
-                Assert.That(xElement.Attribute("waitUrl").Value, Is.EqualTo("wait-url"));
+                Assert.That(xElement.Attribute("waitUrl").Value, Is.EqualTo(ConferenceController.WaitUrl));
                 Assert.That(xElement.Attribute("startConferenceOnEnter").Value, Is.EqualTo("false"));
                 Assert.That(xElement.Attribute("endConferenceOnExit").Value, Is.EqualTo("true"));
             });
@@ -100,7 +100,7 @@ namespace WarmTransfer.Web.Tests.Controllers
             {
                 var xElement = data.XPathSelectElement("Response/Dial/Conference");
                 Assert.That(xElement.Value, Is.EqualTo("conference-id"));
-                Assert.That(xElement.Attribute("waitUrl").Value, Is.EqualTo("wait-url"));
+                Assert.That(xElement.Attribute("waitUrl").Value, Is.EqualTo(ConferenceController.WaitUrl));
                 Assert.That(xElement.Attribute("startConferenceOnEnter").Value, Is.EqualTo("true"));
                 Assert.That(xElement.Attribute("endConferenceOnExit").Value, Is.EqualTo("true"));
             });
