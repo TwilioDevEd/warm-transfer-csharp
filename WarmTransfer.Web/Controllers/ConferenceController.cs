@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Twilio;
 using Twilio.TwiML.Mvc;
 using WarmTransfer.Web.Domain;
@@ -26,13 +25,14 @@ namespace WarmTransfer.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConnectClient(string conferenceId)
+        public ActionResult ConnectClient(string callSid)
         {
             const string agentOne = "agent1";
+            var conferenceId = callSid;
             var callBackUrl = GetConnectConfereceUrlForAgent(agentOne, conferenceId);
             _callCreator.CallAgent(agentOne, callBackUrl);
             _callsRepository.CreateIfNotExists(agentOne, conferenceId);
-            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, conferenceId, false, true);
+            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, false, true);
             return TwiML(response);
         }
 
@@ -65,17 +65,14 @@ namespace WarmTransfer.Web.Controllers
             return null;
         }
 
-        //conference_connect_agent1_url
-        // GetConnectConferenceUrlForAgent
-
         private string GetConnectConfereceUrlForAgent(string agentId, string conferenceId) {
             var action = agentId == "agent1" ? "ConnectAgent1" : "ConnectAgent2";
-            var ac = Url.Action(action);
-            return string.Format(
-                "{0}://{1}{2}",
-                Request.Url.Scheme,
+            var url = string.Format(
+                "https://{0}{1}",
                 Config.Domain,
                 Url.Action(action, new {conferenceId}));
+
+            return url;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 
 namespace WarmTransfer.Web.Models.Repository
@@ -23,7 +24,11 @@ namespace WarmTransfer.Web.Models.Repository
         {
             if (_context.Calls.Any(c => c.AgentId == agentId))
             {
-                return 0;
+                var call = _context.Calls.First(c => c.AgentId == agentId);
+                call.ConferenceId = conferenceId;
+
+                _context.Entry(call).State = EntityState.Modified;
+                return _context.SaveChanges();
             }
 
             _context.Calls.Add(new Call(agentId, conferenceId));

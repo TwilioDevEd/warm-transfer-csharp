@@ -40,28 +40,28 @@ namespace WarmTransfer.Web.Tests.Controllers
         [Test]
         public void WhenConnectClient_ThenShouldCallAgent()
         {
-            _controller.ConnectClient("conference-id");
+            _controller.ConnectClient("call-sid");
 
-            _mockCallCreator.Verify(c => c.CallAgent("agent1", "http://example.com/Home/ConnectAgent1?conferenceId=conference-id"), 
+            _mockCallCreator.Verify(c => c.CallAgent("agent1", "http://example.com/Home/ConnectAgent1?conferenceId=call-sid"), 
                 Times.Once());
         }
 
         [Test]
         public void WhenConnectClient_ThenItShouldCreateACall()
         {
-            _controller.ConnectClient("conference-id");
+            _controller.ConnectClient("call-sid");
 
-            _mockCallsRepository.Verify(c => c.CreateIfNotExists("agent1", "conference-id"),
+            _mockCallsRepository.Verify(c => c.CreateIfNotExists("agent1", "call-sid"),
                 Times.Once());
         }
 
         [Test]
         public void WhenConnectClient_ThenItShouldGenerateConnectConference()
         {
-            _controller.WithCallTo(c => c.ConnectClient("conference-id"))
+            _controller.WithCallTo(c => c.ConnectClient("call-sid"))
             .ShouldReturnTwiMLResult(data =>
                 {
-                    Assert.That(data.XPathSelectElement("Response/Dial/Conference").Value, Is.EqualTo("conference-id"));
+                    Assert.That(data.XPathSelectElement("Response/Dial/Conference").Value, Is.EqualTo("call-sid"));
                 });
         }
 
