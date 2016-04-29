@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<appSettings>
+  <add key="TwilioAccountSid" value="twilio-account-sid" />
+  <add key="TwilioAuthToken" value="twilio-auth-token" />
+  <add key="TwilioPhoneNumber" value="twilio-phone-number" />
+  <add key="Domain" value="example12312d.ngrok.io"/>
+</appSettings>
