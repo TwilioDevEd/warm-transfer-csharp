@@ -11,6 +11,7 @@ using WarmTransfer.Web.Controllers;
 using WarmTransfer.Web.Domain;
 using WarmTransfer.Web.Models.Repository;
 using WarmTransfer.Web.Tests.Extensions;
+using WarmTransfer.Web.Models;
 
 namespace WarmTransfer.Web.Tests.Controllers
 {
@@ -25,6 +26,8 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _mockCallCreator = new Mock<ICallCreator>();
             _mockCallsRepository = new Mock<ICallsRepository>();
+            _mockCallsRepository.Setup(c => c.FindByAgentId("agent2"))
+                .Returns(new Call("agent2", "conference-id"));
 
             _controller = new ConferenceController(
                 _mockCallCreator.Object, _mockCallsRepository.Object)
@@ -32,7 +35,6 @@ namespace WarmTransfer.Web.Tests.Controllers
                 ControllerContext = MockControllerContext(),
                 Url = MockUrlHelper(),
             };
-
         }
 
         [Test]
@@ -119,7 +121,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _controller.CallAgent2("agent2");
 
-            _mockCallCreator.Verify(c => c.CallAgent("agent2", "agent2-callback-url"),
+            _mockCallCreator.Verify(c => c.CallAgent("agent2", "http://example.com/Home/ConnectAgent2?conferenceId=conference-id"),
                 Times.Once());
         }
 
@@ -128,7 +130,6 @@ namespace WarmTransfer.Web.Tests.Controllers
 
             var httpContextMock = new Mock<HttpContextBase>();
             httpContextMock.Setup(c => c.Request.ApplicationPath).Returns("/");
-
 
             var mockRequest = new Mock<HttpRequestBase>();
             mockRequest.Setup(r => r.ApplicationPath).Returns("/");

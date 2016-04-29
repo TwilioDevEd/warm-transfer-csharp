@@ -27,7 +27,7 @@ namespace WarmTransfer.Web.Controllers
         public ActionResult ConnectClient(string conferenceId)
         {
             const string agentOne = "agent1";
-            var callBackUrl = GetConnectConfereceUrlFor(agentOne, conferenceId);
+            var callBackUrl = GetConnectConfereceUrlForAgent(agentOne, conferenceId);
             _callCreator.CallAgent(agentOne, callBackUrl);
             _callsRepository.CreateIfNotExists(agentOne, conferenceId);
             var response = TwiMLGenerator.GenerateConnectConference(conferenceId, conferenceId, false, true);
@@ -57,14 +57,16 @@ namespace WarmTransfer.Web.Controllers
         [HttpPost]
         public ActionResult CallAgent2(string agentId)
         {
-            _callsRepository.FindByAgentId(agentId);
-            const string callBackUrl = "agent2-callback-url"; //TODO extract it to a config file
+            var call = _callsRepository.FindByAgentId(agentId);
+            var callBackUrl = GetConnectConfereceUrlForAgent(agentId, call.ConferenceId);
             _callCreator.CallAgent("agent2", callBackUrl);
             return null;
         }
 
         //conference_connect_agent1_url
-        private string GetConnectConfereceUrlFor(string agentId, string conferenceId) {
+        // GetConnectConferenceUrlForAgent
+
+        private string GetConnectConfereceUrlForAgent(string agentId, string conferenceId) {
             var action = agentId == "agent1" ? "ConnectAgent1" : "ConnectAgent2";
             var ac = Url.Action(action);
             return string.Format(
