@@ -42,7 +42,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _controller.ConnectClient("call-sid");
 
-            _mockCallCreator.Verify(c => c.CallAgent("agent1", "http://example.com/Home/ConnectAgent1?conferenceId=call-sid"), 
+            _mockCallCreator.Verify(c => c.CallAgent("agent1", "https://example.com/Home/ConnectAgent1?conferenceId=call-sid"), 
                 Times.Once());
         }
 
@@ -86,8 +86,8 @@ namespace WarmTransfer.Web.Tests.Controllers
                 var xElement = data.XPathSelectElement("Response/Dial/Conference");
                 Assert.That(xElement.Value, Is.EqualTo("conference-id"));
                 Assert.That(xElement.Attribute("waitUrl").Value, Is.EqualTo(ConferenceController.WaitUrl));
-                Assert.That(xElement.Attribute("startConferenceOnEnter").Value, Is.EqualTo("false"));
-                Assert.That(xElement.Attribute("endConferenceOnExit").Value, Is.EqualTo("true"));
+                Assert.That(xElement.Attribute("startConferenceOnEnter").Value, Is.EqualTo("true"));
+                Assert.That(xElement.Attribute("endConferenceOnExit").Value, Is.EqualTo("false"));
             });
 
         }
@@ -121,7 +121,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _controller.CallAgent2("agent2");
 
-            _mockCallCreator.Verify(c => c.CallAgent("agent2", "http://example.com/Home/ConnectAgent2?conferenceId=conference-id"),
+            _mockCallCreator.Verify(c => c.CallAgent("agent2", "https://example.com/Home/ConnectAgent2?conferenceId=conference-id"),
                 Times.Once());
         }
 
@@ -148,7 +148,7 @@ namespace WarmTransfer.Web.Tests.Controllers
             var mockHttpResponse = new Mock<HttpResponseBase>(MockBehavior.Strict);
             mockHttpContext.Setup(httpContext => httpContext.Request).Returns(mockHttpRequest.Object);
             mockHttpContext.Setup(httpContext => httpContext.Response).Returns(mockHttpResponse.Object);
-            mockHttpRequest.Setup(httpRequest => httpRequest.Url).Returns(new Uri("http://example.com"));
+            mockHttpRequest.Setup(httpRequest => httpRequest.Url).Returns(new Uri("https://example.com"));
             mockHttpRequest.Setup(httpRequest => httpRequest.ServerVariables).Returns(new NameValueCollection());
 
             string value = null;
@@ -164,6 +164,5 @@ namespace WarmTransfer.Web.Tests.Controllers
             RouteConfig.RegisterRoutes(routes);
             return new UrlHelper(requestContext, routes);
         }
-
     }
 }

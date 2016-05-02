@@ -45,7 +45,7 @@ namespace WarmTransfer.Web.Controllers
         [HttpPost]
         public ActionResult ConnectAgent1(string conferenceId)
         {
-            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, false, true);
+            var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, true, false);
             return TwiML(response);
         }
 
