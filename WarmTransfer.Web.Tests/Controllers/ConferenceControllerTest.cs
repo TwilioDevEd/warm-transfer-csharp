@@ -26,8 +26,8 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _mockCallCreator = new Mock<ICallCreator>();
             _mockCallsRepository = new Mock<ICallsRepository>();
-            _mockCallsRepository.Setup(c => c.FindByAgentId("agent2"))
-                .Returns(new Call("agent2", "conference-id"));
+            _mockCallsRepository.Setup(c => c.FindByAgentIdAsync("agent2"))
+                .ReturnsAsync(new Call("agent2", "conference-id"));
 
             _controller = new ConferenceController(
                 _mockCallCreator.Object, _mockCallsRepository.Object)
@@ -51,7 +51,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _controller.ConnectClient("call-sid");
 
-            _mockCallsRepository.Verify(c => c.CreateIfNotExists("agent1", "call-sid"),
+            _mockCallsRepository.Verify(c => c.CreateOrUpdateAsync("agent1", "call-sid"),
                 Times.Once());
         }
 
@@ -112,7 +112,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _controller.CallAgent2("agent2");
 
-            _mockCallsRepository.Verify(c => c.FindByAgentId("agent2"),
+            _mockCallsRepository.Verify(c => c.FindByAgentIdAsync("agent2"),
                 Times.Once());
         }
 

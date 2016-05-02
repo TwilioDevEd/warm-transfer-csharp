@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace WarmTransfer.Web.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class CreateCalls : DbMigration
     {
         public override void Up()

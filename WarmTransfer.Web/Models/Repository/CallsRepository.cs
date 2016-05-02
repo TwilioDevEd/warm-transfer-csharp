@@ -1,14 +1,14 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WarmTransfer.Web.Models.Repository
 {
     public interface ICallsRepository
     {
-        int CreateIfNotExists(string agentId, string conferenceId);
+        Task<int> CreateOrUpdateAsync(string agentId, string conferenceId);
 
-        Call FindByAgentId(string agentId);
+        Task<Call> FindByAgentIdAsync(string agentId);
     }
 
     public class CallsRepository : ICallsRepository
@@ -20,7 +20,7 @@ namespace WarmTransfer.Web.Models.Repository
             _context = context;
         }
 
-        public int CreateIfNotExists(string agentId, string conferenceId)
+        public Task<int> CreateOrUpdateAsync(string agentId, string conferenceId)
         {
             if (_context.Calls.Any(c => c.AgentId == agentId))
             {
@@ -28,16 +28,16 @@ namespace WarmTransfer.Web.Models.Repository
                 call.ConferenceId = conferenceId;
 
                 _context.Entry(call).State = EntityState.Modified;
-                return _context.SaveChanges();
+                return _context.SaveChangesAsync();
             }
 
             _context.Calls.Add(new Call(agentId, conferenceId));
-            return _context.SaveChanges();
+            return _context.SaveChangesAsync();
         }
 
-        public Call FindByAgentId(string agentId)
+        public Task<Call> FindByAgentIdAsync(string agentId)
         {
-            return _context.Calls.Where(c => c.AgentId == agentId).FirstOrDefault();
+            return _context.Calls.Where(c => c.AgentId == agentId).FirstOrDefaultAsync();
         }
     }
 }
