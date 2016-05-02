@@ -14,7 +14,7 @@
 1. Create the sample configuration file and edit it to match your configuration
 
   ```
-  rename Local.config.example Local.config
+  rename WarmTransfer.Web\Local.config.example WarmTransfer.Web\Local.config
   ```
 
  You can find your `TwilioAccountSid` and `TwilioAuthToken` in your
