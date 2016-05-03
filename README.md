@@ -4,14 +4,14 @@
 
 ## Local development
 
-1. First clone this repository and `cd` into it
+1. First clone this repository and `cd` into it.
 
    ```
    git clone git@github.com:TwilioDevEd/warm-transfer-csharp.git
    cd warm-transfer-csharp
    ```
 
-1. Create the sample configuration file and edit it to match your configuration
+1. Create the sample configuration file and edit it to match your configuration.
 
   ```
   rename Local.config.example Local.config
@@ -19,12 +19,12 @@
 
  You can find your `TwilioAccountSid` and `TwilioAuthToken` in your
  [Twilio Account Settings](https://www.twilio.com/user/account/settings).
- You will also need a `TwilioPhoneNumber`, which you may find [here](https://www.twilio.com/user/account/phone-numbers/incoming).
+ You will also need a `TwilioPhoneNumber`, you may find it [here](https://www.twilio.com/user/account/phone-numbers/incoming).
 
 
-1. Create database and run migrations
+1. Create database and run migrations.
 
-   In Visual Studio, open the following command in the Package Manager Console:
+   In Visual Studio, open the following command in the Package Manager Console.
 
    ```
    Update-Database
@@ -77,7 +77,7 @@ That's it!
 1. In one window/tab click `Connect as Agent 1` and in the other one click
    `Connect as Agent 2`. Now both agents are waiting for an incoming call.
 
-1. Dial your [Twilio Number]() to star a call with `Agent 1`. Your `TWILIO_NUMBER`
+1. Dial your [Twilio Number]() to start a call with `Agent 1`. Your `TWILIO_NUMBER`
    environment variable was set when configuring the application to run.
 
 1. When `Agent 1` answers the call from the client, he/she can dial `Agent 2` in
