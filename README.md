@@ -71,6 +71,7 @@ That's it!
    **Notes:**
    * Remember to use your SSL enabled ngrok url `https`.
    Failing to do this won't allow you to receive incoming calls.
+   
    * The application has been tested with [Chrome](https://www.google.com/chrome/)
    and [Firefox](https://firefox.com). Safari is not supported at the moment.
 
