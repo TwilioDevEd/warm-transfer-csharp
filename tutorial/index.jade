@@ -11,7 +11,7 @@
 
       Warm transfer eliminates this problem. Using Twilio powered
       warm transfers your agents will have the ability
-      to dial in another agent in realtime.
+      to dial in another agent in real-time.
 
       Here is how it works at a high level:
 
@@ -47,7 +47,7 @@
       will dial when they want to talk to a support agent.
       ![Configure Voice](//howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
 
-      This action method is the one that ASP.NET framework will generate the public-facing url.
+      This action method is the one that ASP.NET framework will generate the public-facing URL.
 
   .step(
     data-title="Connecting as a Support Agent",
@@ -74,7 +74,6 @@
 
       * [Twilio.js Library](//www.twilio.com/docs/api/client/twilio-js)
       * [Twilio Client Quickstart](//www.twilio.com/docs/quickstart/client)
-      * [TwiML response with the twilio-csharp library](https://www.twilio.com/docs/quickstart/csharp/twiml)
 
   .step(
     data-title="Generating a Capability Token",
@@ -98,7 +97,7 @@
       **See also:**
 
       * [Twilio Client: Capability Tokens](//www.twilio.com/docs/client/capability-tokens)
-      * [Twilio for net developers part 5 twilio client mvc and webmatrix helper libraries](//www.twilio.com/blog/2012/02/twilio-for-net-developers-part-5-twilio-client-mvc-and-webmatrix-helper-libraries.html)
+      * [Twilio for .NET Developers Part 5: Twilio Client, MVC and WebMatrix Helper Libraries](//www.twilio.com/blog/2012/02/twilio-for-net-developers-part-5-twilio-client-mvc-and-webmatrix-helper-libraries.html)
 
   .step(
     data-title="Handling Incoming Calls From Clients",
@@ -117,7 +116,7 @@
       This URL is another end point of our application, it returns more TwiML
       to [say](//www.twilio.com/docs/api/twiml/say) welcome to the user and also
       [play](//www.twilio.com/docs/api/twiml/play) some music while on hold.
-      Take a look at the GenerateWait method.
+      Take a look at the `GenerateWait` method.
 
       We use the client's [`callSid`](//www.twilio.com/help/faq/voice/what-is-a-call-sid) as the conference identifier. Since all the participants
       need this identifier to join the conference we'll need to store it in a database so that we can grab it when we dial the second agent in.
@@ -131,7 +130,7 @@
 
       Here we create a `TwiMLResponse` that will contain a
       [`Dial`](//www.twilio.com/docs/api/twiml/dial) verb with a
-      [`Conference`](https://www.twilio.com/docs/api/twiml/conference) noun that
+      [`Conference`](//www.twilio.com/docs/api/twiml/conference) noun that
       will instruct the client to join a specific conference room.
 
   .step(
@@ -146,10 +145,10 @@
 
       1. `from`: Your Twilio number
       1. `to`  : The agent web client's identifier (`agent1` or `agent2`)
-      1. `url` : A url to ask for TwiML instructions when the call connects
+      1. `url` : A URL to ask for TwiML instructions when the call connects
 
       Once the agent answers the call in the web client, a request is made to the
-      callback url instructing the agent's call to join the conference room where
+      callback URL instructing the agent's call to join the conference room where
       the client is already waiting.
 
   .step(

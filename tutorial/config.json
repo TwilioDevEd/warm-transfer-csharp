@@ -1,7 +1,7 @@
 
 {
     "title": "Warm Transfer",
-    "repo": "TwilioDevEd/warn-trasfer-csharp",
+    "repo": "TwilioDevEd/warm-transfer-csharp",
     "description": "In this tutorial, we will learn how to implement Warm Transfers using ASP.NET MVC and Twilio",
     "heroku": false
 }
