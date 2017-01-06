@@ -39,7 +39,7 @@
   .step(
     data-title="Setting Up Voice Web Hook",
     data-file='WarmTransfer.Web/Controllers/ConferenceController.cs',
-    data-highlight='29-30')
+    data-highlight='27-28')
     :markdown
       ## Setting Up Voice Web Hook
 
@@ -102,7 +102,7 @@
   .step(
     data-title="Handling Incoming Calls From Clients",
     data-file='WarmTransfer.Web/Controllers/ConferenceController.cs',
-    data-highlight='29-40')
+    data-highlight='27-38')
     :markdown
       ## Handling Incoming Calls
 
@@ -124,11 +124,11 @@
   .step(
     data-title="Providing TwiML Instruction For The Client",
     data-file='WarmTransfer.Web/Domain/TwiMLGenerator.cs',
-    data-highlight='8-15')
+    data-highlight='8-21')
     :markdown
       ## Providing TwiML Instruction For The Client
 
-      Here we create a `TwiMLResponse` that will contain a
+      Here we create a `VoiceResponse` that will contain a
       [`Dial`](//www.twilio.com/docs/api/twiml/dial) verb with a
       [`Conference`](//www.twilio.com/docs/api/twiml/conference) noun that
       will instruct the client to join a specific conference room.
@@ -136,15 +136,15 @@
   .step(
     data-title='Dial First Agent Into the Call',
     data-file='WarmTransfer.Web/Domain/CallCreator.cs',
-    data-highlight='18-22')
+    data-highlight='28-33')
     :markdown
       ## Dial First Agent Into the Call
 
       For our app we created a `CallCreator` class to handle dialing our agents. This class uses
-      Twilio's REST API to create a new call. The `InitiateOutboundCall` method receives the following parameters:
+      Twilio's REST API to create a new call. The `CallResource.CreateAsync` method receives the following parameters:
 
-      1. `from`: Your Twilio number
       1. `to`  : The agent web client's identifier (`agent1` or `agent2`)
+      1. `from`: Your Twilio number
       1. `url` : A URL to ask for TwiML instructions when the call connects
 
       Once the agent answers the call in the web client, a request is made to the
@@ -154,7 +154,7 @@
   .step(
     data-title='Dial Second Agent Into the Call',
     data-file='WarmTransfer.Web/Controllers/ConferenceController.cs',
-    data-highlight='56-62')
+    data-highlight='54-60')
     :markdown
       ## Dial Second Agent Into the Call
 
@@ -167,7 +167,7 @@
   .step(
     data-title='The First Agent Leaves the Call',
     data-file='WarmTransfer.Web/Domain/TwiMLGenerator.cs',
-    data-highlight='8-15')
+    data-highlight='8-21')
     :markdown
       ## The First Agent Leaves the Call
 
@@ -201,5 +201,8 @@
 
       Learn how to implement ETA Notifications using ASP.NET MVC and Twilio.
 
+      ### Did this help?
+
       Thanks for checking out this tutorial! If you have any feedback
-      to share with us, we'd love to hear it. [Contact the Twilio Developer Education Team](mailto:deved-oss@twilio.com) to let us know what you think.
+      to share with us, we'd love to hear it.
+      [Contact the Twilio Developer Education Team](mailto:deved-oss@twilio.com) to let us know what you think.
