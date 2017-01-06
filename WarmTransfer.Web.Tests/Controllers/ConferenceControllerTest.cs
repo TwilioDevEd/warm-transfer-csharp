@@ -3,15 +3,15 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Xml.XPath;
 using Moq;
 using NUnit.Framework;
-using System.Xml.XPath;
 using TestStack.FluentMVCTesting;
 using WarmTransfer.Web.Controllers;
 using WarmTransfer.Web.Domain;
+using WarmTransfer.Web.Models;
 using WarmTransfer.Web.Models.Repository;
 using WarmTransfer.Web.Tests.Extensions;
-using WarmTransfer.Web.Models;
 
 namespace WarmTransfer.Web.Tests.Controllers
 {
@@ -42,7 +42,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _controller.ConnectClient("call-sid");
 
-            _mockCallCreator.Verify(c => c.CallAgent("agent1", "https://example.com/Home/ConnectAgent1?conferenceId=call-sid"), 
+            _mockCallCreator.Verify(c => c.CallAgentAsync("agent1", "https://example.com/Home/ConnectAgent1?conferenceId=call-sid"), 
                 Times.Once());
         }
 
@@ -59,7 +59,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         public void WhenConnectClient_ThenItShouldGenerateConnectConference()
         {
             _controller.WithCallTo(c => c.ConnectClient("call-sid"))
-            .ShouldReturnTwiMLResult(data =>
+            .ShouldReturnXmlResult(data =>
                 {
                     Assert.That(data.XPathSelectElement("Response/Dial/Conference").Value, Is.EqualTo("call-sid"));
                 });
@@ -69,7 +69,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         public void WhenWait_ThenItShouldGenerateWait()
         {
             _controller.WithCallTo(c => c.Wait())
-            .ShouldReturnTwiMLResult(data =>
+            .ShouldReturnXmlResult(data =>
             {
                 StringAssert.Contains("Please wait", data.XPathSelectElement("Response/Say").Value);
                 StringAssert.Contains("twilio.music", data.XPathSelectElement("Response/Play").Value);
@@ -81,7 +81,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         public void WhenConnectAgent1_ThenItShouldGenerateConnectConference()
         {
             _controller.WithCallTo(c => c.ConnectAgent1("conference-id"))
-            .ShouldReturnTwiMLResult(data =>
+            .ShouldReturnXmlResult(data =>
             {
                 var xElement = data.XPathSelectElement("Response/Dial/Conference");
                 Assert.That(xElement.Value, Is.EqualTo("conference-id"));
@@ -96,7 +96,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         public void WhenConnectAgent2_ThenItShouldGenerateConnectConference()
         {
             _controller.WithCallTo(c => c.ConnectAgent2("conference-id"))
-            .ShouldReturnTwiMLResult(data =>
+            .ShouldReturnXmlResult(data =>
             {
                 var xElement = data.XPathSelectElement("Response/Dial/Conference");
                 Assert.That(xElement.Value, Is.EqualTo("conference-id"));
@@ -121,7 +121,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         {
             _controller.CallAgent2("agent2");
 
-            _mockCallCreator.Verify(c => c.CallAgent("agent2", "https://example.com/Home/ConnectAgent2?conferenceId=conference-id"),
+            _mockCallCreator.Verify(c => c.CallAgentAsync("agent2", "https://example.com/Home/ConnectAgent2?conferenceId=conference-id"),
                 Times.Once());
         }
 
