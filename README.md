@@ -1,6 +1,14 @@
-# Warm Transfer: Transfer support calls from one agent to another using ASP.NET MVC
+<a href="https://www.twilio.com">
+  <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
+</a>
+
+# Warm Transfer with Twilio - ASP.NET MVC
 
 [![Build status](https://ci.appveyor.com/api/projects/status/q7jpxx2jvds1hjmy?svg=true)](https://ci.appveyor.com/project/TwilioDevEd/warm-transfer-csharp)
+
+In this tutorial, we will learn how to implement Warm Transfers using ASP.NET MVC and Twilio. The example application simulates a support center, using Twilio to transfer calls from one agent to another.
+
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/warm-transfer/csharp/mvc)!
 
 ## Local development
 
@@ -18,7 +26,7 @@
   ```
 
  You can find your `TwilioAccountSid` and `TwilioAuthToken` in your
- [Twilio Account Settings](https://www.twilio.com/user/account/settings).
+ [Twilio Console](https://www.twilio.com/console).
  You will also need a `TwilioPhoneNumber`, you may find it [here](https://www.twilio.com/user/account/phone-numbers/incoming).
 
 
@@ -71,7 +79,7 @@ That's it!
    **Notes:**
    * Remember to use your SSL enabled ngrok url `https`.
    Failing to do this won't allow you to receive incoming calls.
-   
+
    * The application has been tested with [Chrome](https://www.google.com/chrome/)
    and [Firefox](https://firefox.com). Safari is not supported at the moment.
 
