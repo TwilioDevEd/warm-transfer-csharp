@@ -92,8 +92,8 @@
       <HintPath>..\packages\TestStack.FluentMVCTesting.3.0.0\lib\NET45\TestStack.FluentMVCTesting.dll</HintPath>
     </Reference>
     <Reference Include="Twilio, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\twilio-csharp\Twilio\bin\Debug\Twilio.dll</HintPath>
+      <HintPath>..\packages\Twilio.5.0.0-rca2\lib\net45\Twilio.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <Choose>
