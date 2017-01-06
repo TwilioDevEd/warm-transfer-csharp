@@ -1,14 +1,12 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using Twilio;
-using Twilio.TwiML.Mvc;
 using WarmTransfer.Web.Domain;
 using WarmTransfer.Web.Models;
 using WarmTransfer.Web.Models.Repository;
 
 namespace WarmTransfer.Web.Controllers
 {
-    public class ConferenceController : TwilioController
+    public class ConferenceController : Controller
     {
         private readonly ICallCreator _callCreator;
         private readonly ICallsRepository _callsRepository;
@@ -16,7 +14,7 @@ namespace WarmTransfer.Web.Controllers
         public static string WaitUrl = "http://twimlets.com/holdmusic?Bucket=com.twilio.music.classical";
 
         public ConferenceController() : this(
-            new CallCreator(new TwilioRestClient(Config.AccountSID, Config.AuthToken)),
+            new CallCreator(),
             new CallsRepository(new WarmTransferContext())) { }
 
         public ConferenceController(
@@ -32,17 +30,17 @@ namespace WarmTransfer.Web.Controllers
             const string agentOne = "agent1";
             var conferenceId = callSid;
             var callBackUrl = GetConnectConfereceUrlForAgent(agentOne, conferenceId);
-            _callCreator.CallAgent(agentOne, callBackUrl);
+            await _callCreator.CallAgentAsync(agentOne, callBackUrl);
             await _callsRepository.CreateOrUpdateAsync(agentOne, conferenceId);
             var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, false, true);
 
-            return TwiML(response);
+            return Content(response, "text/xml");
         }
 
         [HttpPost]
         public ActionResult Wait()
         {
-            return TwiML(TwiMLGenerator.GenerateWait());
+            return Content(TwiMLGenerator.GenerateWait(), "text/xml");
         }
 
         [HttpPost]
@@ -50,7 +48,7 @@ namespace WarmTransfer.Web.Controllers
         {
             var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, true, false);
 
-            return TwiML(response);
+            return Content(response, "text/xml");
         }
 
         [HttpPost]
@@ -58,7 +56,7 @@ namespace WarmTransfer.Web.Controllers
         {
             var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, true, true);
 
-            return TwiML(response);
+            return Content(response, "text/xml");
         }
 
         [HttpPost]
@@ -66,7 +64,7 @@ namespace WarmTransfer.Web.Controllers
         {
             var call = await _callsRepository.FindByAgentIdAsync(agentId);
             var callBackUrl = GetConnectConfereceUrlForAgent(agentId, call.ConferenceId);
-            _callCreator.CallAgent("agent2", callBackUrl);
+            await _callCreator.CallAgentAsync("agent2", callBackUrl);
 
             return new EmptyResult();
         }

@@ -92,8 +92,8 @@
       <HintPath>..\packages\TestStack.FluentMVCTesting.3.0.0\lib\NET45\TestStack.FluentMVCTesting.dll</HintPath>
     </Reference>
     <Reference Include="Twilio, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Twilio.5.0.0-rca2\lib\net45\Twilio.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\twilio-csharp\Twilio\bin\Debug\Twilio.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -116,7 +116,6 @@
     <Compile Include="Domain\TwiMLGeneratorTest.cs" />
     <Compile Include="Domain\CabapilityGeneratorTest.cs" />
     <Compile Include="Extensions\ControllerResultTestExtensions.cs" />
-    <Compile Include="Extensions\TwiMLResultExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
