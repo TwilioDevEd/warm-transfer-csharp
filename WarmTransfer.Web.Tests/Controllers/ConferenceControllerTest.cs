@@ -11,7 +11,7 @@ using WarmTransfer.Web.Controllers;
 using WarmTransfer.Web.Domain;
 using WarmTransfer.Web.Models;
 using WarmTransfer.Web.Models.Repository;
-using WarmTransfer.Web.Tests.Extensions;
+using FluentMvcTesting.Extensions;
 
 namespace WarmTransfer.Web.Tests.Controllers
 {
