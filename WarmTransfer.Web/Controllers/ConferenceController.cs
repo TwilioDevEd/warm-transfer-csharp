@@ -10,7 +10,7 @@ namespace WarmTransfer.Web.Controllers
     {
         private readonly ICallCreator _callCreator;
         private readonly ICallsRepository _callsRepository;
-
+        private const string OriginHeader = "Origin";
         public static string WaitUrl = "http://twimlets.com/holdmusic?Bucket=com.twilio.music.classical";
 
         public ConferenceController() : this(
@@ -71,10 +71,8 @@ namespace WarmTransfer.Web.Controllers
 
         private string GetConnectConfereceUrlForAgent(string agentId, string conferenceId) {
             var action = agentId == "agent1" ? "ConnectAgent1" : "ConnectAgent2";
-            var url = string.Format(
-                "https://{0}{1}",
-                Config.Domain,
-                Url.Action(action, new {conferenceId}));
+            var origin = Request.Headers[OriginHeader];
+            var url = $"https://{origin}{Url.Action(action, new {conferenceId})}";
 
             return url;
         }

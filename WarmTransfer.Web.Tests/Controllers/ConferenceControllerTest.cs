@@ -29,12 +29,24 @@ namespace WarmTransfer.Web.Tests.Controllers
             _mockCallsRepository.Setup(c => c.FindByAgentIdAsync("agent2"))
                 .ReturnsAsync(new Call("agent2", "conference-id"));
 
+            Mock<HttpContextBase> httpContextMock = new Mock<HttpContextBase>();
+            Mock<HttpRequestBase> httpReguestMock = new Mock<HttpRequestBase>();
+            var headers = new NameValueCollection();
+            headers.Add("Origin", "example.com");
+            httpReguestMock.Setup(r => r.Headers).Returns(headers);
+            httpContextMock.SetupGet(c => c.Request).Returns(httpReguestMock.Object);
+
             _controller = new ConferenceController(
                 _mockCallCreator.Object, _mockCallsRepository.Object)
             {
                 ControllerContext = MockControllerContext(),
                 Url = MockUrlHelper(),
             };
+
+            _controller.ControllerContext = new ControllerContext(
+                httpContextMock.Object, 
+                new RouteData(),
+                _controller);
         }
 
         [Test]
