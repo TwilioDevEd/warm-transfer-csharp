@@ -1,4 +1,6 @@
-﻿using Twilio.JWT;
+﻿using System.Collections.Generic;
+using Twilio.Jwt;
+using Twilio.Jwt.Client;
 
 namespace WarmTransfer.Web.Domain
 {
@@ -6,10 +8,14 @@ namespace WarmTransfer.Web.Domain
     {
         public static string Generate(string agentId)
         {
-            var twilioCapability = new TwilioCapability(Config.AccountSid, Config.AuthToken);
+            var scopes = new HashSet<IScope>
+            {
+                new IncomingClientScope(agentId)
+            };
 
-            twilioCapability.AllowClientIncoming(agentId);
-            return twilioCapability.GenerateToken();
+            var capability = new ClientCapability(Config.AccountSid, Config.AuthToken, scopes: scopes);
+
+            return capability.ToJwt();
         }
     }
 }
