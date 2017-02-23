@@ -12,12 +12,8 @@ namespace WarmTransfer.Web.Domain
             {
                 { new IncomingClientScope(agentId) }
             };
-            var lol = Config.AccountSid;
             var clientCapibility = new ClientCapability(Config.AccountSid, Config.AuthToken, scopes: scopes);
             return clientCapibility.ToJwt();
-            
-            //twilioCapability.AllowClientIncoming(agentId);
-            //return twilioCapability.GenerateToken();
         }
     }
 }
