@@ -4,24 +4,16 @@ namespace WarmTransfer.Web.Domain
 {
     public class Config
     {
-        public static string AccountSID
-        {
-            get { return WebConfigurationManager.AppSettings["TwilioAccountSid"]; }
-        }
+        public static string AccountSid => 
+            WebConfigurationManager.AppSettings["TwilioAccountSid"] ?? "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
-        public static string AuthToken
-        {
-            get { return WebConfigurationManager.AppSettings["TwilioAuthToken"]; }
-        }
+        public static string AuthToken => 
+            WebConfigurationManager.AppSettings["TwilioAuthToken"] ?? "aXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
-        public static string TwilioPhoneNumber
-        {
-            get { return WebConfigurationManager.AppSettings["TwilioPhoneNumber"]; }
-        }
+        public static string TwilioPhoneNumber => 
+            WebConfigurationManager.AppSettings["TwilioPhoneNumber"] ?? "+12345678";
 
-        public static string Domain
-        {
-            get { return WebConfigurationManager.AppSettings["Domain"]; }
-        }
+        public static string Domain => 
+            WebConfigurationManager.AppSettings["Domain"] ?? "domain.ngrok.io";
     }
 }

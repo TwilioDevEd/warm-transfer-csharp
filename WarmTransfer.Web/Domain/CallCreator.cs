@@ -1,24 +1,35 @@
-﻿using Twilio;
+﻿using System;
+using System.Threading.Tasks;
+using Twilio;
+using Twilio.Clients;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace WarmTransfer.Web.Domain
 {
     public interface ICallCreator
     {
-        void CallAgent(string agentId, string callbackUrl);
+        Task CallAgentAsync(string agentId, string callbackUrl);
     }
 
     public class CallCreator : ICallCreator
     {
-        private readonly TwilioRestClient _client;
-        public CallCreator(TwilioRestClient client)
+        
+        public CallCreator()
         {
-            _client = client;
+            TwilioClient.Init(Config.AccountSid, Config.AuthToken);
         }
 
-        public void CallAgent(string agentId, string callbackUrl)
+        public CallCreator(ITwilioRestClient restClient) : this()
         {
-            var from = Config.TwilioPhoneNumber;
-            _client.InitiateOutboundCall(from, string.Format("client:{0}", agentId), callbackUrl);
+            TwilioClient.SetRestClient(restClient);
+        }
+
+        public async Task CallAgentAsync(string agentId, string callbackUrl)
+        {
+            var to = new PhoneNumber($"client:{agentId}");
+            var from = new PhoneNumber(Config.TwilioPhoneNumber);
+            await CallResource.CreateAsync(to, from, url: new Uri(callbackUrl));
         }
     }
 }
