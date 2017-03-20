@@ -11,7 +11,7 @@ namespace WarmTransfer.Web.Tests.Domain
         public void WhenGenerateConnectConference_ThenGeneratesTwiMLWithDialAndConference()
         {
             var response = TwiMLGenerator.GenerateConnectConference("conference-id", "wait-url", true, false);
-            var conference = XDocument.Parse(response).XPathSelectElement("Response/Dial/Conference");
+            var conference = XDocument.Parse(response.ToString()).XPathSelectElement("Response/Dial/Conference");
 
             Assert.That(conference.Value, Is.EqualTo("conference-id"));
             Assert.That(conference.Attribute("waitUrl").Value, Is.EqualTo("wait-url"));
@@ -23,7 +23,7 @@ namespace WarmTransfer.Web.Tests.Domain
         public void WhenGenerateWait_ThenGeneratesTwiMLWithSayAndPlay()
         {
             var response = TwiMLGenerator.GenerateWait();
-            var document = XDocument.Parse(response);
+            var document = XDocument.Parse(response.ToString());
             Assert.That(
                 document.XPathSelectElement("Response/Say").Value,
                 Is.EqualTo("Thank you for calling. Please wait in line for a few seconds. An agent will be with you shortly."));

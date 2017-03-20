@@ -11,7 +11,7 @@ using WarmTransfer.Web.Controllers;
 using WarmTransfer.Web.Domain;
 using WarmTransfer.Web.Models;
 using WarmTransfer.Web.Models.Repository;
-using FluentMvcTesting.Extensions;
+using WarmTransfer.Web.Tests.Extensions;
 
 namespace WarmTransfer.Web.Tests.Controllers
 {
@@ -71,7 +71,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         public void WhenConnectClient_ThenItShouldGenerateConnectConference()
         {
             _controller.WithCallTo(c => c.ConnectClient("call-sid"))
-            .ShouldReturnXmlResult(data =>
+            .ShouldReturnTwiMLResult(data =>
                 {
                     Assert.That(data.XPathSelectElement("Response/Dial/Conference").Value, Is.EqualTo("call-sid"));
                 });
@@ -81,7 +81,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         public void WhenWait_ThenItShouldGenerateWait()
         {
             _controller.WithCallTo(c => c.Wait())
-            .ShouldReturnXmlResult(data =>
+            .ShouldReturnTwiMLResult(data =>
             {
                 StringAssert.Contains("Please wait", data.XPathSelectElement("Response/Say").Value);
                 StringAssert.Contains("twilio.music", data.XPathSelectElement("Response/Play").Value);
@@ -93,7 +93,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         public void WhenConnectAgent1_ThenItShouldGenerateConnectConference()
         {
             _controller.WithCallTo(c => c.ConnectAgent1("conference-id"))
-            .ShouldReturnXmlResult(data =>
+            .ShouldReturnTwiMLResult(data =>
             {
                 var xElement = data.XPathSelectElement("Response/Dial/Conference");
                 Assert.That(xElement.Value, Is.EqualTo("conference-id"));
@@ -108,7 +108,7 @@ namespace WarmTransfer.Web.Tests.Controllers
         public void WhenConnectAgent2_ThenItShouldGenerateConnectConference()
         {
             _controller.WithCallTo(c => c.ConnectAgent2("conference-id"))
-            .ShouldReturnXmlResult(data =>
+            .ShouldReturnTwiMLResult(data =>
             {
                 var xElement = data.XPathSelectElement("Response/Dial/Conference");
                 Assert.That(xElement.Value, Is.EqualTo("conference-id"));
