@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Twilio.AspNet.Mvc;
 using WarmTransfer.Web.Domain;
 using WarmTransfer.Web.Models;
 using WarmTransfer.Web.Models.Repository;
 
 namespace WarmTransfer.Web.Controllers
 {
-    public class ConferenceController : Controller
+    public class ConferenceController : TwilioController
     {
         private readonly ICallCreator _callCreator;
         private readonly ICallsRepository _callsRepository;
@@ -25,7 +26,7 @@ namespace WarmTransfer.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ConnectClient(string callSid)
+        public async Task<TwiMLResult> ConnectClient(string callSid)
         {
             const string agentOne = "agent1";
             var conferenceId = callSid;
@@ -34,29 +35,29 @@ namespace WarmTransfer.Web.Controllers
             await _callsRepository.CreateOrUpdateAsync(agentOne, conferenceId);
             var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, false, true);
 
-            return Content(response, "text/xml");
+            return TwiML(response);
         }
 
         [HttpPost]
-        public ActionResult Wait()
+        public TwiMLResult Wait()
         {
-            return Content(TwiMLGenerator.GenerateWait(), "text/xml");
+            return TwiML(TwiMLGenerator.GenerateWait());
         }
 
         [HttpPost]
-        public ActionResult ConnectAgent1(string conferenceId)
+        public TwiMLResult ConnectAgent1(string conferenceId)
         {
             var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, true, false);
 
-            return Content(response, "text/xml");
+            return TwiML(response);
         }
 
         [HttpPost]
-        public ActionResult ConnectAgent2(string conferenceId)
+        public TwiMLResult ConnectAgent2(string conferenceId)
         {
             var response = TwiMLGenerator.GenerateConnectConference(conferenceId, WaitUrl, true, true);
 
-            return Content(response, "text/xml");
+            return TwiML(response);
         }
 
         [HttpPost]
