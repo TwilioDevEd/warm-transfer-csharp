@@ -30,4 +30,4 @@ jobs:
       run: msbuild WarmTransfer.sln /verbosity:minimal
 
     - name: Run Tests with NUnit Console
-      run: .\packages\NUnit.ConsoleRunner.3.11.1\tools\nunit3-console WarmTransfer.Web.Test\bin\Debug\WarmTransfer.Web.Test.dll
+      run: .\packages\NUnit.ConsoleRunner.3.11.1\tools\nunit3-console WarmTransfer.Web.Tests\bin\Debug\WarmTransfer.Web.Tests.dll
