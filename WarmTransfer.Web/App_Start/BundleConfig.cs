@@ -10,7 +10,6 @@ namespace WarmTransfer.Web
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                       "~/Scripts/lib/dist/js/jquery.js",
                       "~/Scripts/lib/dist/js/bootstrap.js",
-                      "~/Scripts/lib/dist/js/jquery.validate.unobtrusive",
                       "~/Scripts/warm-transfer.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

@@ -26,10 +26,5 @@
       "library": "font-awesome@4.7.0",
       "destination": "Scripts/lib/dist/"
     }
-  ,
-{
-  "library": "jquery-validation-unobtrusive@3.2.11",
-  "destination": "Scripts/lib/dist/js/"
-}
-]
+  ]
 }
